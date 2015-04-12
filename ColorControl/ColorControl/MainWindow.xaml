@@ -36,11 +36,11 @@
             <TextBlock x:Name="RedBlock" VerticalAlignment="Center" Text="0" Style="{StaticResource ColorValueStyle}"/>
         </StackPanel>
 		<StackPanel Grid.Row="1" Style="{StaticResource SliderPanelStyle}">
-            <Slider x:Name="GreenSlider" Style="{StaticResource SliderStyle}" BorderBrush="Green"/>
+            <Slider x:Name="GreenSlider" ValueChanged="Slider_OnValueChanged" Style="{StaticResource SliderStyle}" BorderBrush="Green"/>
             <TextBlock x:Name="GreenBlock" VerticalAlignment="Center" Text="0" Style="{StaticResource ColorValueStyle}"/>
         </StackPanel>
 		<StackPanel Grid.Row="2" Style="{StaticResource SliderPanelStyle}">
-            <Slider x:Name="BlueSlider" Style="{StaticResource SliderStyle}" BorderBrush="Blue"/>
+            <Slider x:Name="BlueSlider" ValueChanged="Slider_OnValueChanged" Style="{StaticResource SliderStyle}" BorderBrush="Blue"/>
             <TextBlock x:Name="BlueBlock" VerticalAlignment="Center" Text="0" Style="{StaticResource ColorValueStyle}"/>
         </StackPanel>
         <StackPanel Grid.Row="3" HorizontalAlignment="Center" Width="100">

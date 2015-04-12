@@ -14,12 +14,13 @@ namespace ColorControl
         public MainWindow()
         {
             InitializeComponent();
-            color = new Color();
+            color = new Color() { A = 255 };
         }
 
         private void Slider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            SetColorText((int) (((Slider) sender).Value), ReturnPositionIndex((Slider) sender));
+            SetColorText((int)(((Slider)sender).Value), ReturnPositionIndex((Slider)sender));
+            ColorOutGrid.Background = new SolidColorBrush(color);
         }
 
         ColorIndex ReturnPositionIndex(Slider slider)
