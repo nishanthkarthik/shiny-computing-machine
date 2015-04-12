@@ -37,7 +37,10 @@ namespace ColorControl
             if (_arduinoPort != null)
             {
                 if (_arduinoPort.IsOpen)
-                _arduinoPort.Close();
+                {
+                    PrintColorToSerial(Colors.Black);
+                    _arduinoPort.Close();
+                }
             }
         }
 
