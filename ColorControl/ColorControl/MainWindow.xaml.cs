@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.IO.Ports;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -10,17 +13,44 @@ namespace ColorControl
     public partial class MainWindow : Window
     {
         private Color color;
+        private SerialPort arduinoPort;
 
         public MainWindow()
         {
             InitializeComponent();
-            color = new Color() { A = 255 };
+            Closed += MainWindow_Closed;
+            color = new Color() { A = 255, R = 0, G = 0, B = 0 };
+            try
+            {
+                arduinoPort = new SerialPort(SerialPort.GetPortNames().First(), 115200);
+                arduinoPort.Open();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Exception");
+                throw;
+            }
+        }
+
+        void MainWindow_Closed(object sender, EventArgs e)
+        {
+            if (arduinoPort != null)
+            {
+                if (arduinoPort.IsOpen)
+                arduinoPort.Close();
+            }
         }
 
         private void Slider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             SetColorText((int)(((Slider)sender).Value), ReturnPositionIndex((Slider)sender));
             ColorOutGrid.Background = new SolidColorBrush(color);
+            PrintColorToSerial(color);
+        }
+
+        private void PrintColorToSerial(Color xcolor)
+        {
+            arduinoPort.Write(new byte[] { (byte)'#', xcolor.R, xcolor.G, xcolor.B }, 0, 4);
         }
 
         ColorIndex ReturnPositionIndex(Slider slider)
@@ -52,6 +82,7 @@ namespace ColorControl
                     break;
             }
         }
+
     }
 
     enum ColorIndex

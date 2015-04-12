@@ -5,7 +5,7 @@
     <Window.Resources>
         <Style x:Key="SliderStyle" TargetType="Slider">
             <Setter Property="Minimum" Value="0"/>
-            <Setter Property="Maximum" Value="1023"/>
+            <Setter Property="Maximum" Value="255"/>
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="Width" Value="400"/>
             <Setter Property="TickFrequency" Value="1"/>
@@ -44,7 +44,7 @@
             <TextBlock x:Name="BlueBlock" VerticalAlignment="Center" Text="0" Style="{StaticResource ColorValueStyle}"/>
         </StackPanel>
         <StackPanel Grid.Row="3" HorizontalAlignment="Center" Width="100">
-            <Grid x:Name="ColorOutGrid"/>
+            <Grid x:Name="ColorOutGrid" Height="50"/>
         </StackPanel>
     </Grid>
 </Window>
