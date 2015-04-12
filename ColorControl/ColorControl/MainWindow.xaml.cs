@@ -12,18 +12,18 @@ namespace ColorControl
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Color color;
-        private SerialPort arduinoPort;
+        private Color _color;
+        private readonly SerialPort _arduinoPort;
 
         public MainWindow()
         {
             InitializeComponent();
             Closed += MainWindow_Closed;
-            color = new Color() { A = 255, R = 0, G = 0, B = 0 };
+            _color = new Color() { A = 255, R = 0, G = 0, B = 0 };
             try
             {
-                arduinoPort = new SerialPort(SerialPort.GetPortNames().First(), 115200);
-                arduinoPort.Open();
+                _arduinoPort = new SerialPort(SerialPort.GetPortNames().First(), 115200);
+                _arduinoPort.Open();
             }
             catch (Exception exception)
             {
@@ -34,25 +34,25 @@ namespace ColorControl
 
         void MainWindow_Closed(object sender, EventArgs e)
         {
-            if (arduinoPort != null)
+            if (_arduinoPort != null)
             {
-                if (arduinoPort.IsOpen)
-                arduinoPort.Close();
+                if (_arduinoPort.IsOpen)
+                _arduinoPort.Close();
             }
         }
 
         private void Slider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             SetColorText((int)(((Slider)sender).Value), ReturnPositionIndex((Slider)sender));
-            ColorOutGrid.Background = new SolidColorBrush(color);
-            PrintColorToSerial(color);
+            ColorOutGrid.Background = new SolidColorBrush(_color);
+            PrintColorToSerial(_color);
         }
 
         private void PrintColorToSerial(Color xcolor)
         {
             try
             {
-                arduinoPort.Write(new byte[] { (byte)'#', xcolor.R, xcolor.G, xcolor.B }, 0, 4);
+                _arduinoPort.Write(new byte[] { (byte)'#', xcolor.R, xcolor.G, xcolor.B }, 0, 4);
             }
             catch (Exception exception)
             {
@@ -78,15 +78,15 @@ namespace ColorControl
             {
                 case ColorIndex.Red:
                     RedBlock.Text = colorValue.ToString();
-                    color.R = (byte)colorValue;
+                    _color.R = (byte)colorValue;
                     break;
                 case ColorIndex.Green:
                     GreenBlock.Text = colorValue.ToString();
-                    color.G = (byte)colorValue;
+                    _color.G = (byte)colorValue;
                     break;
                 case ColorIndex.Blue:
                     BlueBlock.Text = colorValue.ToString();
-                    color.B = (byte)colorValue;
+                    _color.B = (byte)colorValue;
                     break;
             }
         }
