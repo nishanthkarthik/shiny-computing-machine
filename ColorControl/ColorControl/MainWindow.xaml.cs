@@ -50,7 +50,15 @@ namespace ColorControl
 
         private void PrintColorToSerial(Color xcolor)
         {
-            arduinoPort.Write(new byte[] { (byte)'#', xcolor.R, xcolor.G, xcolor.B }, 0, 4);
+            try
+            {
+                arduinoPort.Write(new byte[] { (byte)'#', xcolor.R, xcolor.G, xcolor.B }, 0, 4);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Exception");
+                throw;
+            }
         }
 
         ColorIndex ReturnPositionIndex(Slider slider)
