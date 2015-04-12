@@ -1,7 +1,7 @@
 ﻿<Window x:Class="ColorControl.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ColorControl" Height="350" Width="525">
+        Title="ColorControl" Height="350" Width="525" ResizeMode="CanMinimize">
     <Window.Resources>
         <Style x:Key="SliderStyle" TargetType="Slider">
             <Setter Property="Minimum" Value="0"/>
@@ -10,6 +10,7 @@
             <Setter Property="Width" Value="400"/>
             <Setter Property="TickFrequency" Value="1"/>
             <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style x:Key="ColorValueStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segoe UI Light"/>
@@ -20,26 +21,30 @@
 		<Style x:Key="SliderPanelStyle" TargetType="StackPanel">
 			<Setter Property="Orientation" Value="Horizontal"/>
 			<Setter Property="HorizontalAlignment" Value="Left"/>
-			<Setter Property="Margin" Value="10,0,0,0"/>
+			<Setter Property="Margin" Value="50,0,0,0"/>
 		</Style>
     </Window.Resources>
-    <Grid HorizontalAlignment="Center">
+    <Grid VerticalAlignment="Center">
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Style="{StaticResource SliderPanelStyle}">
-            <Slider x:Name="RedSlider" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource SliderStyle}" BorderBrush="Red"/>
-            <TextBlock VerticalAlignment="Center" Text="0" Style="{StaticResource ColorValueStyle}"/>
+            <Slider x:Name="RedSlider" ValueChanged="Slider_OnValueChanged" Style="{StaticResource SliderStyle}" BorderBrush="Red"/>
+            <TextBlock x:Name="RedBlock" VerticalAlignment="Center" Text="0" Style="{StaticResource ColorValueStyle}"/>
         </StackPanel>
 		<StackPanel Grid.Row="1" Style="{StaticResource SliderPanelStyle}">
-            <Slider x:Name="GreenSlider" VerticalAlignment="Center" Style="{StaticResource SliderStyle}" BorderBrush="Green"/>
-            <TextBlock VerticalAlignment="Center" Text="10" Style="{StaticResource ColorValueStyle}"/>
+            <Slider x:Name="GreenSlider" Style="{StaticResource SliderStyle}" BorderBrush="Green"/>
+            <TextBlock x:Name="GreenBlock" VerticalAlignment="Center" Text="0" Style="{StaticResource ColorValueStyle}"/>
         </StackPanel>
 		<StackPanel Grid.Row="2" Style="{StaticResource SliderPanelStyle}">
-            <Slider x:Name="BlueSlider" VerticalAlignment="Center" Style="{StaticResource SliderStyle}" BorderBrush="Blue"/>
-            <TextBlock VerticalAlignment="Center" Text="1023" Style="{StaticResource ColorValueStyle}"/>
+            <Slider x:Name="BlueSlider" Style="{StaticResource SliderStyle}" BorderBrush="Blue"/>
+            <TextBlock x:Name="BlueBlock" VerticalAlignment="Center" Text="0" Style="{StaticResource ColorValueStyle}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" HorizontalAlignment="Center" Width="100">
+            <Grid x:Name="ColorOutGrid"/>
         </StackPanel>
     </Grid>
 </Window>
